@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyFreeMP3官网入口 - 免费在线音乐搜索与下载平台</title>
+    <meta name="keywords" content="MyFreeMP3、免费音乐下载、在线音乐、无损音质、音乐搜索。" />
+    <meta name="description" content="MyFreeMP3是一个免费的在线音乐搜索和下载平台，提供丰富的音乐资源，支持多种音质和格式，界面简洁，操作方便。">
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script>
+        tailwind.config = { darkMode: `class` }
+    </script>
+    <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="shortcut icon" href="./myfreemp3.png">
+    <link rel="manifest" href="site.webmanifest">
+    <script>
+        // 自定义Tailwind配置
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#165DFF', // 深蓝色主色调
+                        secondary: '#36BFFA', // 浅蓝色辅助色
+                        neutral: {
+                            100: '#F8F9FA',
+                            200: '#E9ECEF',
+                            700: '#343A40',
+                            800: '#212529',
+                            900: '#121212'
+                        }
+                    },
+                    fontFamily: {
+                        inter: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .text-shadow {
+                text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            }
+            .hover-scale {
+                transition: transform 0.3s ease;
+            }
+            .hover-scale:hover {
+                transform: scale(1.03);
+            }
+            .feature-card {
+                @apply bg-white dark:bg-gray-800 rounded-xl p-6 shadow-md transition-all duration-300 hover:shadow-lg hover:-translate-y-1;
+            }
+            .icon-bg {
+                @apply bg-primary/10 dark:bg-primary/20 p-3 rounded-lg mr-4;
+            }
+            .resource-card {
+                @apply bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1;
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen font-inter bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-200">
+    <div class="container mx-auto px-4 py-8 max-w-7xl">
+
+        <!-- 导航栏 -->
+        <nav class="fixed top-0 left-0 right-0 z-50 bg-white/90 dark:bg-gray-800/90 backdrop-blur-md shadow-sm transition-all duration-300" id="navbar">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between h-16">
+                    <div class="flex items-center">
+                        <a href="#" class="flex-shrink-0 flex items-center">
+                            <i class="fas fa-music text-primary text-xl mr-2"></i>
+                            <span class="text-primary font-bold text-xl">MyFreeMP3</span>
+                        </a>
+                        <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
+                            <a href="#about" class="border-b-2 border-primary px-1 pt-1 text-sm font-medium text-primary">网站介绍</a>
+                            <a href="#features" class="border-transparent hover:border-primary px-1 pt-1 text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-primary">功能特点</a>
+                            <a href="#steps" class="border-transparent hover:border-primary px-1 pt-1 text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-primary">使用步骤</a>
+                            <a href="#faq" class="border-transparent hover:border-primary px-1 pt-1 text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-primary">常见问题</a>
+                            <a href="#reviews" class="border-transparent hover:border-primary px-1 pt-1 text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-primary">用户评价</a>
+                        </div>
+                    </div>
+                    <div class="flex items-center">
+                        <button class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" id="themeToggle">
+                            <i class="fas fa-moon-o text-gray-500 dark:text-yellow-400"></i>
+                        </button>
+                        <button class="ml-4 block sm:hidden p-2 rounded-md text-gray-500 dark:text-gray-400 hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-700" id="mobile-menu-button">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 移动端菜单 -->
+            <div class="sm:hidden hidden" id="mobile-menu">
+                <div class="pt-2 pb-3 space-y-1 px-4">
+                    <a href="#about" class="bg-primary/5 border-l-4 border-primary text-primary block pl-3 pr-4 py-2 text-base font-medium">网站介绍</a>
+                    <a href="#features" class="border-l-4 border-transparent hover:border-primary hover:bg-primary/5 text-gray-600 dark:text-gray-300 hover:text-primary block pl-3 pr-4 py-2 text-base font-medium">功能特点</a>
+                    <a href="#steps" class="border-l-4 border-transparent hover:border-primary hover:bg-primary/5 text-gray-600 dark:text-gray-300 hover:text-primary block pl-3 pr-4 py-2 text-base font-medium">使用步骤</a>
+                    <a href="#faq" class="border-l-4 border-transparent hover:border-primary hover:bg-primary/5 text-gray-600 dark:text-gray-300 hover:text-primary block pl-3 pr-4 py-2 text-base font-medium">常见问题</a>
+                    <a href="#reviews" class="border-l-4 border-transparent hover:border-primary hover:bg-primary/5 text-gray-600 dark:text-gray-300 hover:text-primary block pl-3 pr-4 py-2 text-base font-medium">用户评价</a>
+                </div>
+            </div>
+        </nav>
+
+        <header class="relative bg-gradient-to-r from-primary to-secondary text-white py-16 md:py-24 pt-24">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="text-center fade-in">
+                    <h1 class="text-4xl md:text-5xl font-bold mb-4 text-shadow">MyFreeMP3</h1>
+                    <p class="text-xl md:text-2xl max-w-3xl mx-auto opacity-90">免费音乐搜索与下载，丰富资源，无广告。</p>
+                    <div class="mt-8 flex flex-col md:flex-row justify-center space-y-4 md:space-y-0 md:space-x-6">
+                        <a class="bg-white text-primary hover:bg-gray-100 hover:scale-105 transition-transform font-medium py-3 px-6 rounded-lg shadow-lg"
+                           href="https://www.litxdh.com/sites/myfreemp3.html" target="_blank">
+                            <i class="fas fa-external-link-alt mr-2"></i>访问官网
+                        </a>
+                        <a class="bg-white text-primary hover:bg-gray-100 hover:scale-105 transition-transform font-medium py-3 px-6 rounded-lg shadow-lg"
+                            href="https://pan.quark.cn/s/97703bfac418" target="_blank"   content="nofollow no-referrer">
+                            <i class="fas fa-external-link-alt mr-2"></i>电子书/zlib资源包
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="absolute inset-0 bg-black opacity-10"></div>
+        </header>
+
+        <!-- 增加隔离空间 -->
+        <div class="h-5 md:h-10"></div>
+
+        <!-- 网站介绍部分 -->
+        <section id="about" class="mb-16 fade-in" style="animation-delay: 0.4s">
+            <h2 class="text-2xl font-bold mb-8 flex items-center">
+                <div class="icon-bg">
+                    <i class="fas fa-info-circle text-primary text-xl"></i>
+                </div>
+                网站介绍
+            </h2>
+            <div class="bg-white dark:bg-gray-800 rounded-xl p-8 shadow-lg">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div>
+                        <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
+                            <i class="fas fa-music text-primary mr-2"></i>MyFreeMP3是一个免费的在线音乐搜索和下载平台，用户可以通过该网站搜索并下载MP3格式的歌曲。它提供了丰富的音乐资源，包括流行热曲、经典老歌、不同风格的音乐，满足不同用户的听歌需求。
+                        </p>
+                        <p class="text-gray-700 dark:text-gray-300 leading-relaxed">
+                            <i class="fas fa-database text-primary mr-2"></i>MyFreeMP3的音乐库非常庞大，涵盖了各种类型和风格的音乐作品。无论是流行的热门歌曲还是独立艺术家的作品，用户都能在该平台上找到。该平台不仅支持在线播放，还支持从标准音质到无损音乐格式的免费下载，满足不同用户对音质的需求。此外，MyFreeMP3还提供了多种榜单，如飙升榜、新歌榜等，帮助用户发现最新的热门歌曲。
+                        </p>
+                    </div>
+                    <div class="rounded-lg overflow-hidden shadow-xl transform hover:scale-[1.02] transition-transform duration-300">
+                        <img src="./myfreemp3.jpg" alt="MyFreeMP3界面展示" class="w-full h-auto">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 功能特点部分 -->
+        <section id="features" class="mb-16 fade-in" style="animation-delay: 0.6s">
+            <h2 class="text-2xl font-bold mb-8 flex items-center">
+                <div class="icon-bg">
+                    <i class="fas fa-thumbs-up text-primary text-xl"></i>
+                </div>
+                功能特点
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="feature-card">
+                    <h3 class="text-xl font-semibold mb-4 flex items-center">
+                        <i class="fas fa-search text-primary mr-2"></i>
+                        音乐搜索与播放
+                    </h3>
+                    <p class="text-gray-600 dark:text-gray-300">
+                        MyFreeMP3的核心功能之一是音乐搜索。用户只需在搜索框中输入歌曲名、艺术家名或相关关键词，即可在短时间内找到想要的音乐资源。搜索结果会显示相关的音乐列表，用户可以选择歌曲进行在线试听。
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="text-xl font-semibold mb-4 flex items-center">
+                        <i class="fas fa-download text-primary mr-2"></i>
+                        高音质音乐下载
+                    </h3>
+                    <p class="text-gray-600 dark:text-gray-300">
+                        该平台支持从标准音质到无损音乐格式的免费下载，满足不同用户对音质的需求。用户可以根据自己的需求选择最适合的音乐质量进行下载，从而获得更加优质的听觉体验。
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="text-xl font-semibold mb-4 flex items-center">
+                        <i class="fas fa-list text-primary mr-2"></i>
+                        歌单分类与推荐
+                    </h3>
+                    <p class="text-gray-600 dark:text-gray-300">
+                        MyFreeMP3提供了多种榜单，如飙升榜、新歌榜等，帮助用户发现最新的热门歌曲。同时，用户还可以根据自己的喜好创建和管理歌单，方便随时收听。
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 使用步骤部分 -->
+        <section id="steps" class="mb-16 fade-in" style="animation-delay: 0.6s">
+            <h2 class="text-2xl font-bold mb-8 flex items-center">
+                <div class="icon-bg">
+                    <i class="fas fa-step-forward text-primary text-xl"></i>
+                </div>
+                使用步骤
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="feature-card">
+                    <h3 class="text-xl font-semibold mb-4 flex items-center">
+                        <i class="fas fa-globe text-primary mr-2"></i>
+                        访问网站
+                    </h3>
+                    <p class="text-gray-600 dark:text-gray-300">
+                        在浏览器中输入MyFreeMP3的官方网址，进入网站首页。
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="text-xl font-semibold mb-4 flex items-center">
+                        <i class="fas fa-search text-primary mr-2"></i>
+                        搜索音乐
+                    </h3>
+                    <p class="text-gray-600 dark:text-gray-300">
+                        在搜索框中输入关键词，如歌曲名、艺术家名等，点击搜索按钮，即可获得相关音乐资源。
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="text-xl font-semibold mb-4 flex items-center">
+                        <i class="fas fa-download text-primary mr-2"></i>
+                        选择下载
+                    </h3>
+                    <p class="text-gray-600 dark:text-gray-300">
+                        在搜索结果中，找到想要下载的音乐，点击下载按钮，选择合适的音乐格式进行下载。
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 常见问题部分 -->
+        <section id="faq" class="mb-16 fade-in" style="animation-delay: 0.6s">
+            <h2 class="text-2xl font-bold mb-8 flex items-center">
+                <div class="icon-bg">
+                    <i class="fas fa-question-circle text-primary text-xl"></i>
+                </div>
+                常见问题
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="feature-card">
+                    <h3 class="text-xl font-semibold mb-4 flex items-center">
+                        <i class="fas fa-exclamation-triangle text-secondary mr-2"></i>
+                        无法下载音乐
+                    </h3>
+                    <p class="text-gray-600 dark:text-gray-300">
+                        可能是网络连接问题或下载链接失效。可以尝试切换到更稳定的网络，或者等待一段时间后再尝试下载。如果下载链接失效，可以尝试在搜索结果中查找其他可用的下载链接。
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="text-xl font-semibold mb-4 flex items-center">
+                        <i class="fas fa-search-minus text-secondary mr-2"></i>
+                        搜索结果不准确
+                    </h3>
+                    <p class="text-gray-600 dark:text-gray-300">
+                        可能是搜索关键词不够准确或资源库中没有该资源。可以尝试使用更具体的关键词，或者在资源库中查找是否有类似的资源。如果确实没有该资源，可以等待平台更新其资源库。
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="text-xl font-semibold mb-4 flex items-center">
+                        <i class="fas fa-tachometer-alt text-secondary mr-2"></i>
+                        下载速度慢
+                    </h3>
+                    <p class="text-gray-600 dark:text-gray-300">
+                        可能是网络带宽不足或服务器负载过高。可以尝试在不同的时间段进行下载，避开网络高峰期。如果使用的是移动网络，可以切换到Wi-Fi网络，以提高下载速度。
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 用户评价部分 -->
+        <section id="reviews" class="mb-16 fade-in" style="animation-delay: 0.6s">
+            <h2 class="text-2xl font-bold mb-8 flex items-center">
+                <div class="icon-bg">
+                    <i class="fas fa-comments text-primary text-xl"></i>
+                </div>
+                用户评价
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-md hover-scale">
+                    <div class="flex items-center mb-4">
+                        <img src="https://picsum.photos/200/200?random=36" alt="用户头像" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-semibold text-lg">音乐爱好者小R</h4>
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-300">
+                        <i class="fas fa-quote-left text-primary/30 mr-2"></i>
+                        MyFreeMP3的音乐资源很丰富，更新也快，我经常在这里找到最新的音乐资源。
+                        <i class="fas fa-quote-right text-primary/30 ml-2"></i>
+                    </p>
+                </div>
+
+                <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-md hover-scale">
+                    <div class="flex items-center mb-4">
+                        <img src="https://picsum.photos/200/200?random=37" alt="用户头像" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-semibold text-lg">技术宅小S</h4>
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-300">
+                        <i class="fas fa-quote-left text-primary/30 mr-2"></i>
+                        界面简洁，操作方便，搜索功能强大，很容易找到自己喜欢的音乐。
+                        <i class="fas fa-quote-right text-primary/30 ml-2"></i>
+                    </p>
+                </div>
+
+                <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-md hover-scale">
+                    <div class="flex items-center mb-4">
+                        <img src="https://picsum.photos/200/200?random=38" alt="用户头像" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-semibold text-lg">音质控小T</h4>
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-300">
+                        <i class="fas fa-quote-left text-primary/30 mr-2"></i>
+                        支持多种音质和格式，无损音质的下载功能满足了我的需求。
+                        <i class="fas fa-quote-right text-primary/30 ml-2"></i>
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <footer class="text-center text-gray-600 dark:text-gray-400 pt-8 border-t border-gray-200 dark:border-gray-700 fade-in" style="animation-delay: 1.2s">
+            <p class="text-sm">© 2025 MyFreeMP3 音乐平台</p>
+        </footer>
+
+    </div>
+    <script>
+        // 导航栏滚动效果
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 10) {
+                navbar.classList.add('shadow-md');
+                navbar.classList.remove('shadow-sm');
+            } else {
+                navbar.classList.remove('shadow-md');
+                navbar.classList.add('shadow-sm');
+            }
+        });
+
+        // 移动端菜单切换
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // 主题切换功能
+        const themeToggle = document.getElementById('themeToggle');
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.documentElement.classList.add('dark');
+            themeToggle.innerHTML = '<i class="fas fa-sun text-yellow-400"></i>';
+        }
+        
+        themeToggle.addEventListener('click', () => {
+            document.documentElement.classList.toggle('dark');
+            if (document.documentElement.classList.contains('dark')) {
+                themeToggle.innerHTML = '<i class="fas fa-sun text-yellow-400"></i>';
+            } else {
+                themeToggle.innerHTML = '<i class="fas fa-moon-o text-gray-500"></i>';
+            }
+        });
+
+        // 淡入动画
+        document.addEventListener('DOMContentLoaded', () => {
+            const fadeElements = document.querySelectorAll('.fade-in');
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            fadeElements.forEach(element => {
+                element.style.opacity = '0';
+                element.style.transform = 'translateY(20px)';
+                element.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+                observer.observe(element);
+            });
+        });
+
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    // 关闭移动端菜单
+                    document.getElementById('mobile-menu').classList.add('hidden');
+                    
+                    // 平滑滚动到目标位置
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80, // 减去导航栏高度
+                        behavior: 'smooth'
+                    });
+                    
+                    // 更新活动导航链接
+                    document.querySelectorAll('nav a').forEach(navLink => {
+                        navLink.classList.remove('border-primary');
+                        navLink.classList.add('border-transparent');
+                    });
+                    this.classList.remove('border-transparent');
+                    this.classList.add('border-primary');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
